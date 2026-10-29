@@ -28,12 +28,21 @@ def damier():
             color = (e, e, e) 
             pg.draw.rect(screen, color, rect)
 
+def fruit(x,y):
+     color = (255, 0, 0) 
+     rect = pg.Rect(x*20, y*20, 20, 20)
+     pg.draw.rect(screen, color, rect)
+
+#premier fruit
+x_fruit=randint(0,31)
+y_fruit=randint(0,31)
+fruit(x_fruit,y_fruit)
 
 # on rajoute une condition à la boucle: si on la passe à False le programme s'arrête
 running = True
 while running:
 
-    clock.tick(1)
+    clock.tick(2)
     # on itère sur tous les évênements qui ont eu lieu depuis le précédent appel
     # ici donc tous les évènements survenus durant la seconde précédente
     for event in pg.event.get():
@@ -47,28 +56,36 @@ while running:
             if event.key == pg.K_q:
                 running = False
 
-            if event.key == pg.K_UP:
+            if event.key == pg.K_UP and direction!=(0,1):
                 direction = (0,-1)
 
-            if event.key == pg.K_DOWN:
+            if event.key == pg.K_DOWN and direction!=(0,-1):
                 direction = (0,1)
 
-            if event.key == pg.K_RIGHT:
+            if event.key == pg.K_RIGHT and direction!=(-1,0):
                 direction = (1,0)
 
-            if event.key == pg.K_LEFT:
+            if event.key == pg.K_LEFT and direction!=(1,0):
                             direction = (-1,0)
 
     damier()
     
+    if [x_fruit,y_fruit] in snake:        
+        x_fruit=randint(0,31)
+        y_fruit=randint(0,31)
+        snake.append([snake[-1][0]+direction[0],snake[-1][1]+direction[1]])
+    else: 
+        snake.append([snake[-1][0]+direction[0],snake[-1][1]+direction[1]])
+        snake.pop(0)
+
+    fruit(x_fruit,y_fruit)
     
-    snake.append([snake[-1][0]+direction[0],snake[-1][1]+direction[1]])
-    snake.pop(0)
+    
     
 
     for x,y in snake:
         rect = pg.Rect(x*20, y*20, 20, 20)
-        color=(255,0,0)
+        color=(0,255,0)
         pg.draw.rect(screen, color, rect)
 
     
@@ -80,3 +97,4 @@ while running:
 # Enfin on rajoute un appel à pg.quit()
 # Cet appel va permettre à Pygame de "bien s'éteindre" et éviter des bugs sous Windows
 pg.quit()
+
