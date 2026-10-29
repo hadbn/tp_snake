@@ -10,6 +10,11 @@ pg.init()
 screen = pg.display.set_mode((600, 600))
 clock = pg.time.Clock()
 
+snake = [
+    [10, 15],
+    [11, 15],
+    [12, 15],
+    ]
 
 def damier():
     width, height = 20, 20 
@@ -40,10 +45,22 @@ while running:
             if event.key == pg.K_q:
                 running = False
 
+
     # xxx ici c'est discutable, car si on tape 'q'
     # on va quand même changer de couleur avant de sortir...
     damier()
     # une recette pour dessiner un rectangle:
+    
+
+    for x,y in snake:
+        rect = pg.Rect(x*20, y*20, 20, 20)
+        color=(255,0,0)
+        pg.draw.rect(screen, color, rect)
+
+    direction=(1,0)
+    for i in range(len(snake)):
+        snake[i][0]+=direction[0]
+
 
 
     pg.display.update()
