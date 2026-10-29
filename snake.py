@@ -7,8 +7,19 @@ from random import randint
 import pygame as pg
 
 pg.init()
-screen = pg.display.set_mode((400, 300))
+screen = pg.display.set_mode((600, 600))
 clock = pg.time.Clock()
+
+
+def damier():
+    width, height = 20, 20 
+    for j in range(31):
+        for i in range(31):   
+            rect = pg.Rect(j*20, i*20, width, height)
+            e=255*((i+j)%2)
+            color = (e, e, e) 
+            pg.draw.rect(screen, color, rect)
+
 
 # on rajoute une condition à la boucle: si on la passe à False le programme s'arrête
 running = True
@@ -31,9 +42,10 @@ while running:
 
     # xxx ici c'est discutable, car si on tape 'q'
     # on va quand même changer de couleur avant de sortir...
+    damier()
+    # une recette pour dessiner un rectangle:
 
-    random_color = (randint(0, 255), randint(0, 255), randint(0, 255))
-    screen.fill(random_color)
+
     pg.display.update()
 
 
