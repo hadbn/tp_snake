@@ -34,3 +34,5 @@ while True:
 
     # enfin on met à jour la fenêtre avec tous les changements
     pg.display.update()
+
+    
